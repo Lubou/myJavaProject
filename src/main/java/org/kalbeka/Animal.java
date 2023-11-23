@@ -18,7 +18,7 @@ public class Animal {
     static int count = 0;
 
     public void run(int length) {
-        if (runLimit > length & length > 0) {
+        if (runLimit >= length & length > 0) {
             System.out.println(name + " пробежал " + length + "м");
         } else {
             System.out.println(name + " не может пробежать: " + length + "м");
@@ -26,7 +26,7 @@ public class Animal {
     }
 
     void swim(int length) {
-        if (swimLimit > length & length > 0) {
+        if (swimLimit >= length & length > 0) {
             System.out.println(name + " проплыл " + length + "м");
         } else {
             System.out.println(name + " не может проплыть " + length + "м");
