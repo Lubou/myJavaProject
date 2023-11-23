@@ -1,5 +1,9 @@
 package org.kalbeka;
 
+import org.kalbeka.Task2.Circle;
+import org.kalbeka.Task2.Rectangle;
+import org.kalbeka.Task2.Triangle;
+
 //Задание 1
 // Создать классы Собака и Кот с наследованием от класса Животное.
 //Все животные могут бежать и плыть. В качестве параметра каждому методу передается длина препятствия.
@@ -54,7 +58,22 @@ public class App {
         System.out.println("Количество животных - " + Animal.animalCount);
         System.out.println("Количество собак - " + Dog.dogCount);
         System.out.println("Количество котов - " + Cat.catCount);
+
+        // Task 2 Применяя интерфейсы написать программу расчета периметра и площади
+        // геометрических фигур: круг, прямоугольник, треугольник.
+        //Задать для каждой фигуры цвет заливки и цвет границы.
+        //Результат полученных характеристик [ Периметр, площадь, цвет фона, цвет границ ]
+        // по каждой фигуре вывести в консоль.
+        
+        Triangle triangle = new Triangle("black", "white", 3, 2, 3);
+        Circle circle = new Circle("red", "yellow", 10);
+        Rectangle rectangle = new Rectangle("blue", "brown", 5, 7);
+
+        triangle.printInfo();
+        circle.printInfo();
+        rectangle.printInfo();
     }
+
 
     private static void eat(Cat cat) {
         if (cat.full == false && cat.needToEat <= plate.food) {
