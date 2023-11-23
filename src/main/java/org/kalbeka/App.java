@@ -18,17 +18,17 @@ public class App {
         emplArray[3] = new Employee("Pamela Morgan Halpert", "Receptionist", "pam@gmail.com", "84375987", 50000, 31);
         emplArray[4] = new Employee("Andrew Baines Bernard", "Salesman", "and@gmail.com", "94597957908", 30000, 35);
         for (int i = 0; i < emplArray.length; i++)
-            if (emplArray[i].age > 40) emplArray[i].printInfo();
+            if (emplArray[i].getAge() > 40) emplArray[i].printInfo();
     }
 }
 
 class Employee {
-    String name;
-    String position;
-    String email;
-    String phone;
-    int salary;
-    int age;
+    private String name;
+    private String position;
+    private String email;
+    private String phone;
+    private int salary;
+    private int age;
 
     Employee(String name, String position, String email, String phone, int salary, int age) {
         this.name = name;
@@ -37,6 +37,10 @@ class Employee {
         this.phone = phone;
         this.salary = salary;
         this.age = age;
+    }
+
+    public int getAge(){
+        return this.age;
     }
 
     public String toString() {
@@ -54,17 +58,20 @@ class Employee {
  * об аттракционах, времени их работы и стоимости.
  **/
 class Park {
-    void task3(String[] args) {
-        Park park = new Park();
-        Park.Carousel carousel = park.new Carousel("Khali-Gali", "12.00-20.00", 15);
+    Attraction[] attractions = new Attraction[5];
+
+    void addAtraction() {
+        this.attractions[0] = new Attraction("Khali-Gali", "12.00-20.00", 19);
+        this.attractions[1] = new Attraction("Paratruper", "14.00-19.00", 15);
+        this.attractions[2] = new Attraction("Super-8", "13.00-20.00", 21);
     }
 
-    class Carousel {
+    class Attraction {
         String name;
         String time;
         int cost;
 
-        Carousel(String name, String time, int cost) {
+        Attraction(String name, String time, int cost) {
             this.name = name;
             this.time = time;
             this.cost = cost;
