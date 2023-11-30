@@ -1,83 +1,53 @@
 package org.kalbeka;
 
-/*
- * Реализовать сохранение данных в csv файл; Реализовать загрузку данных из csv файла. Файл читается целиком.
- * Структура csv файла:
- * Строка заголовок с набором столбцов
- * Набор строк с целочисленными значениями
- * Разделитель между столбцами - символ точка с запятой (;)
- * (Пример см. на скриншоте)
- * Для хранения данных использовать класс вида:
- * public class AppData {
- * private String[] header;
- * private int[][] data;
- * // ...
- * }
- * Если выполняется save(AppData data), то старые данные в файле полностью перезаписываются.
- */
+/*Напишите метод, на вход которого подаётся двумерный строковый массив размером 4х4.
+При подаче массива другого размера необходимо бросить исключение MyArraySizeException.
 
-import java.io.*;
+Далее метод должен пройтись по всем элементам массива, преобразовать в int и просуммировать.
+Если в каком-то элементе массива преобразование не удалось (например, в ячейке лежит символ или текст вместо числа),
+должно быть брошено исключение MyArrayDataException с детализацией, в какой именно ячейке лежат неверные данные.
+
+В методе main() вызвать полученный метод, обработать возможные исключения MyArraySizeException и MyArrayDataException
+и вывести результат расчета. */
+
 
 public class App {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
+        String[][] arr = {
+                {"1", "1", "1", "1"},
+                {"1", "1", "1", "1"},
+                {"1", "1", "1", "1"},
+                {"1", "1", "1", "1"}};
+        try {
+            checkArray(arr);
+        } catch (MyArraySizeException | MyArrayDataException e) {
+            System.out.println("Exception: " + e.getMessage());
 
-        AppData appData = new AppData();
-
-        String[] arr = {"Value 1", "Value 2", "Value 3", "Value4"};
-        int[][] data = {
-                {100, 200, 123, 434},
-                {300, 400, 500, 235}};
-
-        appData.setHeader(arr);
-        appData.setData(data);
-
-        save(appData);
-        read();
-    }
-
-    public static void save(AppData appData) {
-        try (FileWriter writer = new FileWriter("example.csv")) {
-
-            StringBuilder header = new StringBuilder();
-
-            // Add header
-            for (int i = 0; i < appData.getHeader().length; i++) {
-                header.append(appData.getHeader()[i]);
-                if (i != appData.getHeader().length - 1) {
-                    header.append(';');
-                }
-            }
-            header.append("\n");
-            writer.write(header.toString());
-
-            // Add numbers
-            for (int[] num : appData.getData()) {
-                StringBuilder line = new StringBuilder();
-                for (int i = 0; i < num.length; i++) {
-                    line.append(num[i]);
-                    if (i != num.length - 1) {
-                        line.append(';');
-                    }
-                }
-                line.append("\n");
-                writer.write(line.toString());
-            }
-            writer.close();
-            System.out.println("CSV saved");
-        } catch (Exception e) {
-            System.out.println("CSV don't save");
         }
     }
 
-    public static void read() throws IOException {
-        BufferedReader br = null;
+    public static void checkArray(String[][] arr) throws MyArraySizeException, MyArrayDataException {
+        int size = 4;
 
-        br = new BufferedReader(new FileReader("example.csv"));
-        String line;
-        while ((line = br.readLine()) != null) {
-            System.out.println(line);
+        int[][] num = new int[size][size];
+        int sum = 0;
+
+        if (arr.length != size) throw new MyArraySizeException("Некорректный размер массива");
+
+        for (String[] strings : arr) {
+            if (strings.length != size) throw new MyArraySizeException("Некорректный размер массива");
+        }
+        for (int y = 0; y < arr.length; y++) {
+            for (int x = 0; x < arr.length; x++) {
+                if (arr[y][x].matches("[-+]?\\d+")) {
+                    num[y][x] = Integer.parseInt(arr[y][x]);
+                    sum += Integer.parseInt(arr[y][x]);
+                } else {
+                    throw new MyArrayDataException(y, x);
+                }
+            }
         }
 
-        br.close();
+        System.out.println("Сумма = " + sum);
     }
 }
