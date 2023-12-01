@@ -45,8 +45,8 @@ public class App {
 
         // Перекус
         System.out.println("-------Перекус--------");
-        for (int i = 0; i < cats.length; i++) {
-            eat(cats[i]);
+        for (Cat cat : cats) {
+            cat.eat(plate);
         }
 
         // Добавляем в тарелку 30 еды
@@ -57,13 +57,15 @@ public class App {
         System.out.println("-------------------------");
         System.out.println("Количество животных - " + Animal.animalCount);
         System.out.println("Количество собак - " + Dog.dogCount);
-        System.out.println("Количество котов - " + Cat.catCount);
+        System.out.println("Количество котов - " + Cat.getCatCount());
 
         // Task 2 Применяя интерфейсы написать программу расчета периметра и площади
         // геометрических фигур: круг, прямоугольник, треугольник.
         //Задать для каждой фигуры цвет заливки и цвет границы.
         //Результат полученных характеристик [ Периметр, площадь, цвет фона, цвет границ ]
         // по каждой фигуре вывести в консоль.
+        // Попробуйте реализовать базовые методы, такие как расчет периметра фигур,
+        // в качестве дефолтных методов в интерфейсе.
         
         Triangle triangle = new Triangle("black", "white", 3, 2, 3);
         Circle circle = new Circle("red", "yellow", 10);
@@ -72,16 +74,5 @@ public class App {
         triangle.printInfo();
         circle.printInfo();
         rectangle.printInfo();
-    }
-
-
-    private static void eat(Cat cat) {
-        if (cat.full == false && cat.needToEat <= plate.food) {
-            cat.eat(plate);
-            cat.full = true;
-            System.out.println(cat.name + " поел!");
-        } else {
-            System.out.println(cat.name + " не поел!");
-        }
     }
 }

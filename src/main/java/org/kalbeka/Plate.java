@@ -8,11 +8,11 @@ public class Plate {
     }
 
     public void decreaseFood(int eat) {
-        food = food - eat;
+        food -= eat;
     }
 
     public void increaseFood(int eat) {
-        food = food + eat;
+        food += eat;
     }
 
     public void getFoodCount() {

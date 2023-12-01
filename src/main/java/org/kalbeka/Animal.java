@@ -11,11 +11,9 @@ public class Animal {
     }
 
     public Animal(String name) {
-        this.animalCount++;
+        animalCount++;
         this.name = name;
     }
-
-    static int count = 0;
 
     public void run(int length) {
         if (runLimit >= length & length > 0) {

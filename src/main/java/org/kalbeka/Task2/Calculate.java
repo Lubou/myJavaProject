@@ -1,7 +1,9 @@
 package org.kalbeka.Task2;
 
 public interface Calculate {
-    double calculatePerimeter();
+    default double calculatePerimeter() {
+        return 0;
+    }
 
     double calculateSquare();
 

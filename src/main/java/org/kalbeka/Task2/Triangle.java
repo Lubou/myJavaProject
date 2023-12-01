@@ -13,8 +13,8 @@ public class Triangle extends Shape implements Calculate {
 
     @Override
     public double calculatePerimeter() {
-        super.perimeter = a + b + c;
-        return super.perimeter;
+        perimeter = a + b + c;
+        return perimeter;
     }
 
     @Override

@@ -8,18 +8,18 @@ public class Rectangle extends Shape implements Calculate {
         super(borderColor, bgColor);
         this.a = a;
         this.b = b;
+        this.perimeter = calculatePerimeter();
     }
 
     @Override
     public double calculatePerimeter() {
-        super.perimeter = (2 * a) + (2 * b);
-        return super.perimeter;
-    }
+        return (2 * a) + (2 * b);
+    };
 
     @Override
     public double calculateSquare() {
-        super.square = a * b;
-        return super.square;
+        square = a * b;
+        return square;
     }
 
     @Override
@@ -28,7 +28,7 @@ public class Rectangle extends Shape implements Calculate {
         System.out.println("Прямоугольник");
         System.out.println("Цвет границ - " + borderColor);
         System.out.println("Цвет заливки - " + bgColor);
-        System.out.println("Периметр - " + calculatePerimeter());
+        System.out.println("Периметр - " + perimeter);
         System.out.println("Площадь - " + calculateSquare());
     }
 }
