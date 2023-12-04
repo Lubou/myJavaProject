@@ -20,4 +20,17 @@ public class AppData {
     public String[] getHeader() {
         return this.header;
     }
+
+    public void printData() {
+        for (String h : header) {
+            System.out.print(h + " ");
+        }
+        System.out.println();
+        for (int[] row : data) {
+            for (int col : row) {
+                System.out.print(col + " ");
+            }
+            System.out.println();
+        }
+    }
 }
