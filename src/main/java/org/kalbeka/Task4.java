@@ -67,7 +67,6 @@ public class Task4 {
         }
     }
 
-
     public static void checkAge() {
 
         double age = (double) students.stream().filter((s) -> s.getGender() == Gender.MAN).
