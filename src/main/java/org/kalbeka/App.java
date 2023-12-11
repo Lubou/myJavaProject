@@ -1,5 +1,7 @@
 package org.kalbeka;
 
+import java.util.*;
+
 /* 1. Создать массив с набором слов (10-20 слов, должны встречаться повторяющиеся).
 Найти и вывести список уникальных слов, из которых состоит массив (дубликаты не считаем).
 Посчитать, сколько раз встречается каждое слово. (реализовать с использованием коллекций)
@@ -10,28 +12,25 @@ package org.kalbeka;
 тогда при запросе такой фамилии должны выводиться все телефоны.*/
 public class App {
     public static void main(String[] args) {
+        
+        // Task 1
 
-        Array groups = new Array();
-        groups.add("Beatles");
-        groups.add("Queen");
-        groups.add("Metallica");
-        groups.add("Aerosmith");
-        groups.add("Beatles");
-        groups.add("Ramones");
-        groups.add("Nirvana");
-        groups.add("Metallica");
-        groups.add("Coldplay");
-        groups.add("Beatles");
-        groups.add("Radiohead");
-        groups.add("Metallica");
-        groups.add("Scorpions");
-        groups.add("Beatles");
-        groups.add("Slash");
-        groups.add("Queen");
-        groups.add("Offspring");
-        groups.add("Beatles");
+        String[] gr = {"Beatles", "Queen", "Metallica", "Aerosmith", "Beatles", "Ramones", "Nirvana", "Metallica",
+                "Coldplay", "Beatles", "Radiohead", "Metallica", "Scorpions", "Beatles", "Slash", "Queen", "Offspring",
+                "Beatles"};
 
-        groups.get();
+        ArrayList<String> groups = new ArrayList<String>();
+        Collections.addAll(groups, gr);
+
+        Set<String> set = new LinkedHashSet<>(groups);
+        System.out.println(set);
+
+        Map<String, Integer> countGroups = new HashMap<>();
+
+        for (String group : groups) {
+            countGroups.put(group, countGroups.getOrDefault(group, 0) + 1);
+        }
+        System.out.println(countGroups);
 
         // Task 2
 
