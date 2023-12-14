@@ -1,20 +1,14 @@
 package org.kalbeka;
 
 public abstract class Fruit {
-    private double weight;
-    private String fruitName;
+    private final double weight;
 
-    public Fruit(String fruitName, double weight) {
-        this.fruitName = fruitName;
+    public Fruit(double weight) {
         this.weight = weight;
     }
 
     public double getWeight() {
         return weight;
-    }
-
-    public String getName() {
-        return fruitName;
     }
 
 }

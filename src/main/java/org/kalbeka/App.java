@@ -1,7 +1,5 @@
 package org.kalbeka;
 
-import java.util.ArrayList;
-
 /**
  * 1. Даны классы Fruit, Apple extends Fruit, Orange extends Fruit;
  * 2. Класс Box, в который можно складывать фрукты. Коробки условно сортируются по типу фрукта,
@@ -16,25 +14,30 @@ import java.util.ArrayList;
  * нельзя яблоки высыпать в коробку с апельсинами. Соответственно, в текущей коробке фруктов не остается,
  * а в другую перекидываются объекты, которые были в первой;
  * 7. Не забываем про метод добавления фрукта в коробку.
- *
  */
-public class App 
-{
-    public static void main( String[] args )
-    {
-        AppleBox<> box1 = new AppleBox<>();
+public class App {
+    public static void main(String[] args) {
+        Box<Apple> appleBox = new Box<>();
+        appleBox.addFruit(new Apple());
+        appleBox.addFruit(new Apple());
+        appleBox.addFruit(new Apple());
+        //appleBox.addFruit(new Orange()); // -- Ошибка
+        System.out.println("Вес коробки с яблоками " + appleBox.getWeight());
 
-        box1.addFruit(new Apple());
-        box1.addFruit(new Apple());
+        Box<Orange> orangeBox1 = new Box<>();
+        orangeBox1.addFruit(new Orange());
+        orangeBox1.addFruit(new Orange());
+        //orangeBox.addFruit(new Apple()); // -- Ошибка
+        System.out.println("Вес первой коробки с апельсинами " + orangeBox1.getWeight());
 
-        System.out.print(box1.getWeight());
+        Box<Orange> orangeBox2 = new Box<>();
+        orangeBox2.addFruit(new Orange());
+        System.out.println("Вес второй коробки с апельсинами " + orangeBox2.getWeight());
 
-        OrangeBox<Orange> box2 = new OrangeBox<>();
+        System.out.println(appleBox.compare(orangeBox1));
 
-        box1.addFruit(new Orange());
-        box1.addFruit(new Orange());
-
-        System.out.print(box1.getWeight());
-
+        orangeBox1.transferFruits(orangeBox2);
+        System.out.println(orangeBox2.getWeight());
+        System.out.println(orangeBox1.getWeight());
     }
 }

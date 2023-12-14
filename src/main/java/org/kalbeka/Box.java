@@ -4,12 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Box<T extends Fruit> {
-    private List<T> fruitList;
+    private final List<T> fruitList;
     private double sumWeight;
 
-
     public Box() {
-        this.fruitList = new ArrayList<>();
+        fruitList = new ArrayList<T>();
     }
 
     public void addFruit(T fruit) {
@@ -21,8 +20,17 @@ public class Box<T extends Fruit> {
         return sumWeight;
     }
 
-    /*public boolean compare() {
-        if (new Box<Orange>().equals(new Box<Apple>()))
+    public boolean compare(Box<?> box) {
+        return Math.abs(this.getWeight() - box.getWeight()) < 0.001;
 
-    }*/
+    }
+
+    public void transferFruits(Box<T> box) {
+        for (T fruit : fruitList) {
+            box.addFruit(fruit);
+        }
+        fruitList.clear();
+        sumWeight = 0;
+    }
+
 }
