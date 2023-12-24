@@ -1,17 +1,11 @@
 package org.kalbeka.uitest;
 
-import dev.failsafe.internal.util.Assert;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 
-import java.util.concurrent.TimeUnit;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /* Необходимо написать автотесты для сайта mts.by. Суть тестов заключается в проверке блока «Онлайн пополнение без комиссии»:
 1.Проверить название указанного блока;
@@ -19,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 3.Проверить работу ссылки «Подробнее о сервисе»;
 4.Заполнить поля и проверить работу кнопки «Продолжить»(проверяем только вариант «Услуги связи», номер для теста 297777777)*/
 public class TestMTS extends TestBase {
-
 
     @Test
     public void testOnlinePay() {
@@ -32,18 +25,16 @@ public class TestMTS extends TestBase {
 
         //1
         WebElement blockHeader = driver.findElement(By.xpath("//section/div/h2"));
-        String actual = blockHeader.getText();
-        String expected = "Онлайн пополнение" + '\n' + "без комиссии";
-        assertEquals(expected, actual);
+        assertEquals("Онлайн пополнение" + '\n' + "без комиссии", blockHeader.getText(), "проверка заголовка блока «Онлайн пополнение без комиссии»");
 
         //2
         WebElement payLogos = driver.findElement(By.className("pay__partners"));
-        assertTrue(payLogos.isDisplayed());
+        assertTrue(payLogos.isDisplayed(), "проверка наличия логотипов платёжных систем");
 
         //3
         WebElement infoLink = driver.findElement(By.xpath("//a[contains( text(),'Подробнее о сервисе')]"));
         infoLink.click();
-        System.out.println(driver.getTitle());
+        assertEquals("Порядок оплаты и безопасность интернет платежей", driver.getTitle(), "проверка заголовка страницы по ссылке Подробнее о сервисе");
 
         driver.navigate().back();
 
@@ -62,7 +53,7 @@ public class TestMTS extends TestBase {
 
         WebElement continueButton = driver.findElement(By.xpath("//form[@class= \"pay-form opened\"]/button[@class= \"button button__default \"]"));
         continueButton.click();
-        System.out.println(continueButton.isDisplayed());
 
+        
     }
 }

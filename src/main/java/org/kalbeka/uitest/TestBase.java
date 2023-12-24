@@ -1,7 +1,6 @@
 package org.kalbeka.uitest;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,7 +15,7 @@ public abstract class TestBase {
     @BeforeAll
     public static void settings() {
         WebDriverManager.chromedriver().setup();
-        /*System.setProperty("webdriver.chrome.driver", new File("external_resources/chromedriver-win32/chromedriver.exe").getAbsolutePath());*/
+        //System.setProperty("webdriver.chrome.driver", new File("external_resources/chromedriver-win32/chromedriver.exe").getAbsolutePath());//
     }
 
     @BeforeEach
