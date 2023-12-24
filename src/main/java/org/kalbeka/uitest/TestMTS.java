@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-
 import static org.junit.jupiter.api.Assertions.*;
 
 /* Необходимо написать автотесты для сайта mts.by. Суть тестов заключается в проверке блока «Онлайн пополнение без комиссии»:
@@ -52,8 +51,8 @@ public class TestMTS extends TestBase {
         eMailInput.sendKeys("abrakadabra@gmail.com");
 
         WebElement continueButton = driver.findElement(By.xpath("//form[@class= \"pay-form opened\"]/button[@class= \"button button__default \"]"));
+        assertTrue(continueButton.isEnabled(), "проверка работы кнопки «Продолжить»");
         continueButton.click();
 
-        
     }
 }
