@@ -1,44 +1,46 @@
 package org.kalbeka.uitest;
 
+import dev.failsafe.internal.util.Assert;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import java.io.File;
 import java.util.concurrent.TimeUnit;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /* Необходимо написать автотесты для сайта mts.by. Суть тестов заключается в проверке блока «Онлайн пополнение без комиссии»:
 1.Проверить название указанного блока;
 2.Проверить наличие логотипов платёжных систем;
 3.Проверить работу ссылки «Подробнее о сервисе»;
 4.Заполнить поля и проверить работу кнопки «Продолжить»(проверяем только вариант «Услуги связи», номер для теста 297777777)*/
-public class TestMTS {
+public class TestMTS extends TestBase {
+
 
     @Test
     public void testOnlinePay() {
-        System.setProperty("webdriver.chrome.driver",
-                new File("external_resources/chromedriver-win32/chromedriver.exe").getAbsolutePath());
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://mts.by");
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
-        //0
+        driver.get("https://mts.by");
+
+        //0 принять cookies
         WebElement cookiesSkip = driver.findElement(By.xpath("//button[@id=\"cookie-agree\"]"));
         cookiesSkip.click();
 
         //1
         WebElement blockHeader = driver.findElement(By.xpath("//section/div/h2"));
-        System.out.println(blockHeader.getText());
-        System.out.println("1: " + blockHeader.isDisplayed());
+        String actual = blockHeader.getText();
+        String expected = "Онлайн пополнение" + '\n' + "без комиссии";
+        assertEquals(expected, actual);
 
         //2
         WebElement payLogos = driver.findElement(By.className("pay__partners"));
-        System.out.println("2: " + payLogos.isDisplayed());
+        assertTrue(payLogos.isDisplayed());
 
         //3
-
         WebElement infoLink = driver.findElement(By.xpath("//a[contains( text(),'Подробнее о сервисе')]"));
         infoLink.click();
         System.out.println(driver.getTitle());
@@ -61,8 +63,6 @@ public class TestMTS {
         WebElement continueButton = driver.findElement(By.xpath("//form[@class= \"pay-form opened\"]/button[@class= \"button button__default \"]"));
         continueButton.click();
         System.out.println(continueButton.isDisplayed());
-
-        driver.quit();
 
     }
 }
