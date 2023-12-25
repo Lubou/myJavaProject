@@ -1,10 +1,16 @@
 package org.kalbeka;
 
+import java.math.BigInteger;
+
 public class Factorial {
-    public static int getFactorial(int f) {
-        int result = 1;
-        for (int i = 1; i <= f; i++) {
-            result *= i;
+    static BigInteger getFactorial(int f) {
+
+        if (f < 0) {
+            throw new IllegalArgumentException("Факториал не может быть рассчитан для отрицательных чисел");
+        }
+        BigInteger result = BigInteger.ONE;
+        for (int i = 2; i <= f; i++) {
+            result = result.multiply(BigInteger.valueOf(i));
         }
         return result;
     }
