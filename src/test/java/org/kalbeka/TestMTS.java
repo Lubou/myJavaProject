@@ -149,17 +149,32 @@ public class TestMTS extends TestBase {
         continueButton.click();
         driver.switchTo().frame(driver.findElement(By.className("bepaid-iframe")));
 
+
         WebElement mastercardIcon = driver.findElement(By.xpath("//img[@src='assets/images/payment-icons/card-types/mastercard-system.svg']"));
         WebElement visaIcon = driver.findElement(By.xpath("//img[@src='assets/images/payment-icons/card-types/visa-system.svg']"));
         WebElement belkartIcon = driver.findElement(By.xpath("//img[@src='assets/images/payment-icons/card-types/belkart-system.svg']"));
         WebElement mirIcon = driver.findElement(By.xpath("//img[@src='assets/images/payment-icons/card-types/mir-system-ru.svg']"));
         WebElement maestroIcon = driver.findElement(By.xpath("//img[@src='assets/images/payment-icons/card-types/maestro-system.svg']"));
-
-        assertTrue(mastercardIcon.isEnabled());
-        assertTrue(visaIcon.isEnabled());
-        assertTrue(belkartIcon.isEnabled());
-        assertTrue(mirIcon.isEnabled());
-        assertTrue(maestroIcon.isEnabled());
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        assertTrue(mastercardIcon.isDisplayed());
+        assertTrue(visaIcon.isDisplayed());
+        assertTrue(belkartIcon.isDisplayed());
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        assertTrue(mirIcon.isDisplayed());
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        assertTrue(maestroIcon.isDisplayed());
 
     }
 
