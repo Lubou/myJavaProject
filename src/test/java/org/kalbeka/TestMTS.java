@@ -1,4 +1,4 @@
-package org.kalbeka.uitest;
+package org.kalbeka;
 
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
@@ -16,28 +16,41 @@ public class TestMTS extends TestBase {
     @Test
     public void testOnlinePay() {
 
-        driver.get("https://mts.by");
-
-        //0 принять cookies
-        WebElement cookiesSkip = driver.findElement(By.xpath("//button[@id=\"cookie-agree\"]"));
-        cookiesSkip.click();
-
-        //1
-        WebElement blockHeader = driver.findElement(By.xpath("//section/div/h2"));
+        WebElement blockHeader = driver.findElement(By.xpath("//section[@class='pay']//h2"));
         assertEquals("Онлайн пополнение" + '\n' + "без комиссии", blockHeader.getText(), "проверка заголовка блока «Онлайн пополнение без комиссии»");
+    }
 
-        //2
-        WebElement payLogos = driver.findElement(By.className("pay__partners"));
-        assertTrue(payLogos.isDisplayed(), "проверка наличия логотипов платёжных систем");
+    @Test
+    public void testPayLogos() {
 
-        //3
+        WebElement payLogoVisa = driver.findElement(By.xpath("//li/img[@alt = \"Visa\"]"));
+        WebElement payLogoVerified = driver.findElement(By.xpath("//li/img[@alt = \"Verified By Visa\"]"));
+        WebElement payLogoMasterCard = driver.findElement(By.xpath("//li/img[@alt = \"MasterCard\"]"));
+        WebElement payLogoMasterSecure = driver.findElement(By.xpath("//li/img[@alt = \"MasterCard Secure Code\"]"));
+        WebElement payLogoBelcard = driver.findElement(By.xpath("//li/img[@alt = \"Белкарт\"]"));
+        WebElement payLogoMir = driver.findElement(By.xpath("//li/img[@alt = \"МИР\"]"));
+        assertTrue(payLogoVisa.isDisplayed());
+        assertTrue(payLogoVerified.isDisplayed());
+        assertTrue(payLogoMasterCard.isDisplayed());
+        assertTrue(payLogoMasterSecure.isDisplayed());
+        assertTrue(payLogoBelcard.isDisplayed());
+        assertTrue(payLogoMir.isDisplayed());
+
+    }
+
+    @Test
+    public void testInfoLink() {
+
         WebElement infoLink = driver.findElement(By.xpath("//a[contains( text(),'Подробнее о сервисе')]"));
         infoLink.click();
+        assertEquals("https://www.mts.by/help/poryadok-oplaty-i-bezopasnost-internet-platezhey/", driver.getCurrentUrl());
+
         assertEquals("Порядок оплаты и безопасность интернет платежей", driver.getTitle(), "проверка заголовка страницы по ссылке Подробнее о сервисе");
+    }
 
-        driver.navigate().back();
+    @Test
+    public void testInput() {
 
-        //4
         WebElement numberInput = driver.findElement(By.xpath("//form/div/input[@placeholder= \"Номер телефона\"]"));
         numberInput.click();
         numberInput.sendKeys("297777777");
@@ -51,8 +64,10 @@ public class TestMTS extends TestBase {
         eMailInput.sendKeys("abrakadabra@gmail.com");
 
         WebElement continueButton = driver.findElement(By.xpath("//form[@class= \"pay-form opened\"]/button[@class= \"button button__default \"]"));
-        assertTrue(continueButton.isEnabled(), "проверка работы кнопки «Продолжить»");
+
         continueButton.click();
+        driver.switchTo().frame(driver.findElement(By.className("bepaid-iframe")));
+        assertTrue((driver.findElement(By.xpath("//section[@class= \"content payment-page_pays\"]"))).isEnabled());
 
     }
 }
