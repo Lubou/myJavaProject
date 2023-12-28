@@ -1,9 +1,17 @@
 package org.kalbeka;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
+import java.util.concurrent.TimeUnit;
+
+import static java.time.Duration.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 /* Продолжим работу над блоком «Онлайн пополнение без комиссии» сайта mts.by.
@@ -149,31 +157,17 @@ public class TestMTS extends TestBase {
         continueButton.click();
         driver.switchTo().frame(driver.findElement(By.className("bepaid-iframe")));
 
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement mastercardIcon = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//img[@src='assets/images/payment-icons/card-types/mastercard-system.svg']")));
+        WebElement visaIcon = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//img[@src='assets/images/payment-icons/card-types/visa-system.svg']")));
+        WebElement belkartIcon = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//img[@src='assets/images/payment-icons/card-types/belkart-system.svg']")));
+        WebElement mirIcon = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//img[@src='assets/images/payment-icons/card-types/mir-system-ru.svg']")));
+        WebElement maestroIcon = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//img[@src='assets/images/payment-icons/card-types/maestro-system.svg']")));
 
-        WebElement mastercardIcon = driver.findElement(By.xpath("//img[@src='assets/images/payment-icons/card-types/mastercard-system.svg']"));
-        WebElement visaIcon = driver.findElement(By.xpath("//img[@src='assets/images/payment-icons/card-types/visa-system.svg']"));
-        WebElement belkartIcon = driver.findElement(By.xpath("//img[@src='assets/images/payment-icons/card-types/belkart-system.svg']"));
-        WebElement mirIcon = driver.findElement(By.xpath("//img[@src='assets/images/payment-icons/card-types/mir-system-ru.svg']"));
-        WebElement maestroIcon = driver.findElement(By.xpath("//img[@src='assets/images/payment-icons/card-types/maestro-system.svg']"));
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         assertTrue(mastercardIcon.isDisplayed());
         assertTrue(visaIcon.isDisplayed());
         assertTrue(belkartIcon.isDisplayed());
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         assertTrue(mirIcon.isDisplayed());
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         assertTrue(maestroIcon.isDisplayed());
 
     }
