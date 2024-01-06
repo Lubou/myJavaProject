@@ -13,9 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-/*Написать автотест для калькулятора, который совершает арифметические действия (сложение, вычитание, умножение и деление)
-и проверяет, что результат, отображаемый на экране соответствует ожидаемому (для теста взять приложение «Калькулятор» от Google
-(https://play.google.com/store/apps/details?id=com.google.android.calculator&hl=ru&gl=US&pli=1)).*/
+/*Необходимо взять тест из практического задания в теме 17 и добавить Allure-репорт.*/
 
 public class CalculatorTest {
 
