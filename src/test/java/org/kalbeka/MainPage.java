@@ -28,20 +28,31 @@ public class MainPage extends BasePage {
 
 
     @FindBy(xpath = ITEM_TO_BUY_1_NAME_XPATH_LOCATOR)
-    public static WebElement itemToBuy1Name;
+    private WebElement itemToBuy1Name;
     @FindBy(xpath = ITEM_TO_BUY_2_NAME_XPATH_LOCATOR)
-    public static WebElement itemToBuy2Name;
+    private WebElement itemToBuy2Name;
     @FindBy(xpath = ITEM_TO_BUY_1_PRICE_XPATH_LOCATOR)
-    public static WebElement itemToBuy1Price;
+    private WebElement itemToBuy1Price;
     @FindBy(xpath = ITEM_TO_BUY_2_PRICE_XPATH_LOCATOR)
-    public static WebElement itemToBuy2Price;
+    private WebElement itemToBuy2Price;
 
+    public String getItemToBuy1NameText() {
+        return itemToBuy1Name.getText();
+    }
 
-    public static String itemToBuy1NameText = itemToBuy1Name.getText();
-    public static String itemToBuy2NameText = itemToBuy2Name.getText();
-    public static String itemToBuy1PriceText = itemToBuy1Price.getText();
-    public static String itemToBuy2PriceText = itemToBuy2Price.getText();
+    public String getItemToBuy2NameText() {
+        return itemToBuy2Name.getText();
+    }
 
+    public String getItemToBuy1PriceText() {
+        waitElementVisibility(By.xpath(ITEM_TO_BUY_1_PRICE_XPATH_LOCATOR));
+        return itemToBuy1Price.getText();
+    }
+
+    public String getItemToBuy2PriceText() {
+        waitElementVisibility(By.xpath(ITEM_TO_BUY_2_PRICE_XPATH_LOCATOR));
+        return itemToBuy2Price.getText();
+    }
 
     public MainPage(WebDriver driver) {
         super(driver);
@@ -53,26 +64,29 @@ public class MainPage extends BasePage {
         Actions action = new Actions(driver);
         action.moveToElement(waitElementVisibility(By.xpath(ITEM_TO_BUY_1_XPATH_LOCATOR)));
         action.perform();
+
+        waitElementVisibility(By
+                .xpath(BSKT_ADD_BUTTON_1_XPATH_LOCATOR)).click();
+
         try {
-            waitElementVisibility(By
-                    .xpath(BSKT_ADD_BUTTON_1_XPATH_LOCATOR)).click();
+            action.moveToElement(driver.findElement(By.xpath(ITEM_TO_BUY_2_XPATH_LOCATOR)));
         } catch (NoSuchElementException e) {
             driver.findElement(By.xpath("(//label[@class='j-quick-order-size-fake sizes-list__button'])[1]")).click();
         }
-
-        action.moveToElement(driver.findElement(By.xpath(ITEM_TO_BUY_2_XPATH_LOCATOR)));
         action.perform();
+
         waitElementVisibility(By.xpath(BSKT_ADD_BUTTON_2_XPATH_LOCATOR)).click();
 
     }
 
-    public void goToBasket() {
+    public BasketPage goToBasket() {
+        addToBasket();
         try {
             waitElementVisibility(By.xpath(BASKET_BUTTON_XPATH_LOCATOR)).click();
         } catch (NoSuchElementException e) {
             driver.findElement(By.xpath("(//label[@class='j-quick-order-size-fake sizes-list__button'])[1]")).click();
         }
-
+        return new BasketPage(driver);
     }
 
     private WebElement waitElementVisibility(By locator) {

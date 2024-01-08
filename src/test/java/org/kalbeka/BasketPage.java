@@ -5,6 +5,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class BasketPage extends BasePage {
 
@@ -18,30 +22,51 @@ public class BasketPage extends BasePage {
 
 
     @FindBy(xpath = BASKET_ITEM_1_NAME_XPATH_LOCATOR)
-    public static WebElement basketItem1Name;
+    private WebElement basketItem1Name;
     @FindBy(xpath = BASKET_ITEM_2_NAME_XPATH_LOCATOR)
-    public static WebElement basketItem2Name;
+    private WebElement basketItem2Name;
     @FindBy(xpath = BASKET_ITEM_1_XPATH_LOCATOR)
-    public static WebElement basketItem1;
+    private WebElement basketItem1;
     @FindBy(xpath = BASKET_ITEM_2_XPATH_LOCATOR)
-    public static WebElement basketItem2;
+    private WebElement basketItem2;
     @FindBy(xpath = BASKET_ITEMS_COUNT_XPATH_LOCATOR)
-    public static WebElement basketItemsCount;
+    private WebElement basketItemsCount;
     @FindBy(xpath = BASKET_ITEM_1_PRICE_XPATH_LOCATOR)
-    public static WebElement basketItem1Price;
+    private WebElement basketItem1Price;
     @FindBy(xpath = BASKET_ITEM_2_PRICE_XPATH_LOCATOR)
-    public static WebElement basketItem2Price;
+    private WebElement basketItem2Price;
 
 
-    public static String basketItem1NameText = basketItem1Name.getText();
-    public static String basketItem2NameText = basketItem2Name.getText();
-    public static String basketItemsCountText = basketItemsCount.getAttribute("data-count");
-    public static String basketItem1PriceText = basketItem1Price.getText();
-    public static String basketItem2PriceText = basketItem2Price.getText();
+    public String getBasketItem1NameText() {
+        return basketItem1Name.getText();
+    }
 
+    public String getBasketItem2NameText() {
+        return basketItem2Name.getText();
+    }
+
+    public String getBasketItemsCountText() {
+        return basketItemsCount.getAttribute("data-count");
+    }
+
+    public String getBasketItem1PriceText() {
+        waitElementVisibility(By.xpath(BASKET_ITEM_1_PRICE_XPATH_LOCATOR));
+        return basketItem1Price.getText();
+    }
+
+    public String getBasketItem2PriceText() {
+        waitElementVisibility(By.xpath(BASKET_ITEM_2_PRICE_XPATH_LOCATOR));
+        return basketItem2Price.getText();
+    }
 
     public BasketPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
+    }
+
+    private WebElement waitElementVisibility(By locator) {
+        return new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.visibilityOfElementLocated(locator));
+
     }
 }

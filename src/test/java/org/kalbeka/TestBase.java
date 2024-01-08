@@ -1,7 +1,6 @@
 package org.kalbeka;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.bouncycastle.jcajce.util.BCJcaJceHelper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 public abstract class TestBase {
 
     protected WebDriver driver;
+
     @BeforeAll
     public static void settings() {
         WebDriverManager.chromedriver().setup();
